@@ -64,7 +64,7 @@ client.on('connect', () => {
     client.subscribe('todolist/add');
     client.subscribe('todolist/remove');
     client.subscribe('todolist/complete');
-    client.subscribe('todolist/uncomplete');  // Add this line
+    client.subscribe('todolist/uncomplete'); 
     client.subscribe('todolist/list');
 });
 
@@ -74,7 +74,7 @@ client.on('message', async (topic, message) => {
     switch (topic) {
         case 'todolist/add':
             const newTodo = { id: Date.now().toString(), task: data.task, completed: false };
-            todos = [newTodo, ...todos];  // Change this line
+            todos = [newTodo, ...todos]; 
             await saveTodosToRedis();
             await loadTodos();
             publishTodoList();
@@ -148,7 +148,7 @@ const saveTodosToRedis = async () => {
         redisTodos = redisTodos ? JSON.parse(redisTodos) : [];
         
         // Add new todos to the beginning of Redis list
-        redisTodos = [...todos, ...redisTodos];  // Change this line
+        redisTodos = [...todos, ...redisTodos];  
         
         // Check if we have 50 or more items
         if (redisTodos.length >= 50) {
